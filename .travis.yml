@@ -1,5 +1,4 @@
 language: generic
-sudo: required
  
 services:
   - docker
@@ -9,3 +8,15 @@ before_install:
 
 script:
   - docker run -e CI=true lokofoko/docker-course-react npm run test 
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "docker-course-react"
+  env: "Dockercoursereact-env-1"
+  bucket_name: "elasticbeanstalk-us-east-2-719963672843"
+  bucket_path: "docker-course-react"
+  on:
+    branch: main
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
